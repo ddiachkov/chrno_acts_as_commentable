@@ -1,0 +1,21 @@
+<%= render layout: "comments/wrapper", locals: { comment: comment } do %>
+
+  <%= form_for comment, remote: true do |f| %>
+    <div class="errors">
+      <%= f.errors %>
+    </div>
+
+    <div class="field">
+      <%= f.label :body %>
+      <%= f.text_area :body %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+
+    <%= f.hidden_field :commentable_type %>
+    <%= f.hidden_field :commentable_id %>
+  <% end %>
+
+<% end %>

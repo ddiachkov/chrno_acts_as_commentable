@@ -1,0 +1,17 @@
+<%= render layout: "comments/wrapper", locals: { comment: comment } do %>
+
+  <div class="body">
+    <p>
+      <%= comment.body %>
+    </p>
+    <p>
+      Created at: <%= comment.created_at %>
+    </p>
+    <p>
+      <%= link_to_new_comment "Reply", for: comment %>
+      <%= link_to_edit_comment "Edit", comment %>
+      <%= link_to_delete_comment "Delete", comment, confirm: "Are you sure?" %>
+    </p>
+  </div>
+
+<% end %>

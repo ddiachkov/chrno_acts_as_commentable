@@ -1,0 +1,5 @@
+<% if @comment.destroyed? %>
+  <p>Комментарий удалён!</p>
+<% else %>
+  <%= render "comment", comment: @comment %>
+<% end %>
