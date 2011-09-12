@@ -4,6 +4,9 @@ module ActsAsCommentable
     ##
     # Отображает ссылку на форму создания комментария.
     #
+    # @param [Hash] options параметры
+    #   @option options [#comments] :for комментируемый объект
+    #
     # @example
     #   link_to_new_comment "New comment", for: @post
     #
@@ -15,8 +18,6 @@ module ActsAsCommentable
       else
         name    = args[ 0 ]
         options = ( args[ 1 ] || {} ).merge( args[ 2 ] || {} )
-
-        options.assert_keys_presence :for
 
         # Комментируемый объект
         commentable = options.delete :for
@@ -41,6 +42,9 @@ module ActsAsCommentable
 
     ##
     # Отображает ссылку на редактирование комментария.
+    #
+    # @param [Hash] options параметры
+    #   @option options [#comments] :for комментируемый объект
     #
     # @example
     #   link_to_edit_comment "Edit", @comment
@@ -109,13 +113,13 @@ module ActsAsCommentable
     ##
     # Отображает комментарии 1 уровня к объекту.
     #
+    # @param [Hash] options параметры
+    #   @option options [#comments] :for комментируемый объект
+    #
     # @example
     #   display_comments for: @post
     #
-    def display_comments( *args )
-      options = args.extract_options!
-      options.assert_keys_presence :for
-
+    def display_comments( options )
       # Комментируемый объект
       commentable = options.delete :for
 
