@@ -30,8 +30,6 @@
                             .find (link.data ("placeholder"))
                             .first();
 
-      console.log (link.data ("placeholder"), link, placeholder);
-
       if (placeholder.length) {
         placeholder.append (data);
       }
