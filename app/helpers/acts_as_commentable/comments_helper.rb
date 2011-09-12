@@ -6,6 +6,7 @@ module ActsAsCommentable
     #
     # @param [Hash] options параметры
     #   @option options [#comments] :for комментируемый объект
+    #   @option options [String] :placeholder (".comment") селектор контейнера для нового комментария
     #
     # @example
     #   link_to_new_comment "New comment", for: @post
@@ -26,10 +27,7 @@ module ActsAsCommentable
         options[ :data ] ||= {}
         options[ :data ][ "commentable-id"   ] = commentable.id
         options[ :data ][ "commentable-type" ] = commentable.class.name
-
-        if options[ :placeholder ]
-          options[ :data ][ "placeholder" ] = options.delete :placeholder || ".comments"
-        end
+        options[ :data ][ "placeholder"      ] = options.fetch( :placeholder, "#comments" )
 
         # Добавляем класс
         options[ :class ] ||= ""
@@ -60,8 +58,6 @@ module ActsAsCommentable
         comment = args[ 1 ]
         options = ( args[ 2 ] || {} ).merge( args[ 3 ] || {} )
 
-        raise ArgumentError, "expected Comment, got: #{comment.inspect}" unless comment.is_a? Comment
-
         # Сохраняем ID удаляемого комментария
         options[ :data ] ||= {}
         options[ :data ][ "comment-id" ] = comment.id
@@ -91,8 +87,6 @@ module ActsAsCommentable
         name    = args[ 0 ]
         comment = args[ 1 ]
         options = ( args[ 2 ] || {} ).merge( args[ 3 ] || {} )
-
-        raise ArgumentError, "expected Comment, got: #{comment.inspect}" unless comment.is_a? Comment
 
         # Сохраняем ID удаляемого комментария
         options[ :data ] ||= {}

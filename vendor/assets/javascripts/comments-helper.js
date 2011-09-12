@@ -25,19 +25,16 @@
     };
 
     $.get (link.attr ("href"), params).success (function (data) {
-      if (placeholder = link.data ("placeholder")) {
-        $(placeholder).append (data);
-      }
-      // Если не задан placeholder, то пробуем найти ближайший к ссылке элемент
-      // с классом comments
-      else if ((placeholder = getCommentByID (params.commentable_id).find (".comments:first")) && placeholder.length) {
+      var placeholder = $(link.data ("placeholder"));
+
+      if (placeholder.length) {
         placeholder.append (data);
-        $(".comment-form textarea").focus ();
       }
-      // Иначе, добавляем форму сразу после ссылки
       else {
-        link.after (data);
+        link.before (data);
       }
+
+      $(".comment-form textarea").focus ();
     });
   });
 
