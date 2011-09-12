@@ -4,5 +4,5 @@
 # Сущность "комментарий".
 #
 class Comment < ActiveRecord::Base
-  include ActsAsCommentable::CommentBase
+  include ActsAsCommentable.CommentBase
 end

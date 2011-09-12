@@ -4,8 +4,9 @@ module ActsAsCommentable
   # Создание и редактирование комментариев.
   #
   class CommentsController < ApplicationController
-    layout false
-    respond_to :html
+    # Имя класса комментариев
+    class_attribute :comment_class_name
+    self.comment_class_name = "Comment"
 
     # Загружаем комментарий
     before_filter :load_comment, except: [ :new, :create ]
@@ -13,9 +14,14 @@ module ActsAsCommentable
     # Загружаем комментируемый объект
     before_filter :load_commentable, only: [ :new, :create ]
 
+    # Мы всегда пользуемся AJAX'ом
+    layout false
+
+    respond_to :html
+
     # Форма создания комментария
     def new
-      @comment = ::Comment.new
+      @comment = comment_class.new
       @comment.commentable = @commentable
       @comment.author = current_user
 
@@ -24,7 +30,7 @@ module ActsAsCommentable
 
     # Записать комментарий
     def create
-      @comment = ::Comment.new params[ :comment ]
+      @comment = comment_class.new params[ :comment ]
       @comment.commentable = @commentable
       @comment.author = current_user
       @comment.save
@@ -58,9 +64,14 @@ module ActsAsCommentable
 
     protected
 
+    # Возвращает класс комментариев
+    def comment_class
+      @comment_class ||= ActiveRecord::Base.send( :compute_type, self.class.comment_class_name )
+    end
+
     # Загрузка комментария
     def load_comment
-      @comment = ::Comment.find params[ :id ]
+      @comment = comment_class.find params[ :id ]
     end
 
     # Загрузка комментируемого объекта

@@ -1,11 +1,9 @@
 # encoding: utf-8
+require "acts_as_commentable/comment_base"
+require "acts_as_commentable/ar_extension"
+require "acts_as_commentable/version"
+
 module ActsAsCommentable
-  extend ActiveSupport::Autoload
-
-  autoload :ARExtension, "acts_as_commentable/ar_extension"
-  autoload :CommentBase, "acts_as_commentable/comment_base"
-  autoload :VERSION,     "acts_as_commentable/version"
-
   class Engine < Rails::Engine
     initializer "acts_as_commentable.initialization" do
       # Загрузка в AR
