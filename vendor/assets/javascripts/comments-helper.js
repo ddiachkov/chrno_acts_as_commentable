@@ -25,8 +25,12 @@
     };
 
     $.get (link.attr ("href"), params).success (function (data) {
-      // Ищем ближайший к ссылке плейсхолдер
-      var placeholder = link.closest (link.data ("placeholder"));
+      // Ищем ближайший к ссылке комментарий и в нём уже ищем плейсхолдер
+      var placeholder = link.closest (".comment")
+                            .find (link.data ("placeholder"))
+                            .first();
+
+      console.log (link.data ("placeholder"), link, placeholder);
 
       if (placeholder.length) {
         placeholder.append (data);
