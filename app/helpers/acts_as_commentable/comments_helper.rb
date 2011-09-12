@@ -27,7 +27,7 @@ module ActsAsCommentable
         options[ :data ] ||= {}
         options[ :data ][ "commentable-id"   ] = commentable.id
         options[ :data ][ "commentable-type" ] = commentable.class.name
-        options[ :data ][ "placeholder"      ] = options.fetch( :placeholder, "#comments" )
+        options[ :data ][ "placeholder"      ] = options.fetch( :placeholder, ".comments" )
 
         # Добавляем класс
         options[ :class ] ||= ""

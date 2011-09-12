@@ -25,7 +25,8 @@
     };
 
     $.get (link.attr ("href"), params).success (function (data) {
-      var placeholder = $(link.data ("placeholder"));
+      // Ищем ближайший к ссылке плейсхолдер
+      var placeholder = link.closest (link.data ("placeholder"));
 
       if (placeholder.length) {
         placeholder.append (data);
