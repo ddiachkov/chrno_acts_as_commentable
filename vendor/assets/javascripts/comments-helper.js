@@ -34,7 +34,7 @@
         link.before (data);
       }
 
-      $(".comment-form textarea").focus ();
+      $("#comment_body").focus ();
     });
   });
 
