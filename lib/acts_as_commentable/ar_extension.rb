@@ -14,26 +14,7 @@ module ActsAsCommentable
                :as         => :commentable,
                :dependent  => :destroy
 
-      include ActiveSupport::Callbacks
       include InstanceMethods
-
-      # Callback будет вызываться после создания нового комментария
-      define_callbacks :after_comment_create
-
-      class << self
-        # Макрос для создание callback'ов
-        define_method :after_comment_create do |*filters, &block|
-          set_callback :after_comment_create, :after, *filters, &block
-        end
-      end
-
-      # Callback можно будет отлавливать в обсерверах
-      after_comment_create do |comment|
-        comment.instance_eval do
-          changed
-          notify_observers :after_comment_create
-        end
-      end
     end
   end
 

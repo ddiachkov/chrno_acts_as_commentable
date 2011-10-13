@@ -95,21 +95,6 @@ module ActsAsCommentable
 
           # Комментарии можно комментировать
           acts_as_commentable
-
-          ##
-          # Послать сообщение к родительскому объекту.
-          #
-          after_create do |comment|
-            comment.commentable.run_callbacks( :after_comment_create, comment )
-          end
-
-          ##
-          # Сработает при комментировании комментария.
-          #
-          after_comment_create do |comment|
-            # Перенаправить событие на корневой объект
-            comment.commentable.run_callbacks( :after_comment_create, comment )
-          end
         end # class_eval
       end # def included
     end # Module.new
