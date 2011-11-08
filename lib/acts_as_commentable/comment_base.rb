@@ -70,7 +70,7 @@ module ActsAsCommentable
     Module.new do
       # Сохраняем параметры в переменную, т.к. мы выходим из области
       # видимости CommentBase
-      class_variable_set :@@_options, options
+      @@_options = options
 
       def self.included( comment_class )
         # Подключаем методы экземпляра для комментариев
