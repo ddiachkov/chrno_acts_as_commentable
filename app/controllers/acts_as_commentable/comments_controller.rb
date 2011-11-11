@@ -35,7 +35,7 @@ module ActsAsCommentable
       @comment.author = current_user
       @comment.save
 
-      respond_with @comment
+      respond_with @comment, template: "comments/edit"
     end
 
     # Показать единичный комментарий
