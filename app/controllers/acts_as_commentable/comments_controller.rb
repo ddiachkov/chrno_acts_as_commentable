@@ -35,14 +35,7 @@ module ActsAsCommentable
       @comment.author = current_user
       @comment.save
 
-      respond_with @comment, template: "comments/edit"
-    end
-
-    # Показать единичный комментарий
-    # (этот action нужен потому что по умолчанию Responder перенаправляет на
-    # него после успешного создания/изменения записи)
-    def show
-      respond_with @comment
+      respond_with @comment, template: "comments/show"
     end
 
     # Редактировать комментарий
@@ -53,7 +46,7 @@ module ActsAsCommentable
     # Записать изменения
     def update
       @comment.update_attributes params[ :comment ]
-      respond_with @comment
+      respond_with @comment, template: "comments/show"
     end
 
     # Удалить комментарий
